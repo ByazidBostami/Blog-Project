@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Search Results for "{{ query }}"</h2>
+    
+    {% if results %}
+        <ul>
+            {% for post in results %}
+                <li>
+                    <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a> - Categories: 
+                    {% for catG in post.category.all %}
+                        {{ catG.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endblock %}
